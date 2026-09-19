@@ -1,22 +1,20 @@
+<div align="center">
+
 # AI-Powered Autonomous Cybersecurity & Incident Investigation Platform
 
 > **System Classification**: Academic Research Prototype & Evaluation Testbed  
 > **Canonical Positioning Statement**:  
 > *"An evidence-driven academic prototype integrating SIEM-style event ingestion, UEBA, anomaly detection, AI-assisted investigation, attack correlation, MITRE ATT&CK mapping, response simulation, human approval, and continuous learning into one coherent workflow."*
 
-[![Backend Tests](https://img.shields.io/badge/Backend%20Tests-48%2F48%20Passing%20(100%25)-brightgreen.svg)]()
-[![Frontend Build](https://img.shields.io/badge/Frontend%20Build-Clean%20Production%20Build-blue.svg)]()
-[![Safety Invariant](https://img.shields.io/badge/Defensive%20Actions-Simulation%20Only-orange.svg)]()
-[![Roadmap Status](https://img.shields.io/badge/Phases%200--8-Fully%20Operational-success.svg)]()
-[![Security Matrix](https://img.shields.io/badge/RBAC-4--Tier%20Enforced-purple.svg)]()
+<p align="center">
+  <img src="https://img.shields.io/badge/Backend%20Tests-48%2F48%20Passing%20(100%25)-brightgreen.svg" alt="Backend Tests" />
+  <img src="https://img.shields.io/badge/Frontend%20Build-Clean%20Production%20Build-blue.svg" alt="Frontend Build" />
+  <img src="https://img.shields.io/badge/Defensive%20Actions-Simulation%20Only-orange.svg" alt="Safety Invariant" />
+  <img src="https://img.shields.io/badge/Phases%200--8-Fully%20Operational-success.svg" alt="Roadmap Status" />
+  <img src="https://img.shields.io/badge/RBAC-4--Tier%20Enforced-purple.svg" alt="Security Matrix" />
+</p>
 
-| Live Service | Local Port / URL | Operational Purpose |
-| :--- | :--- | :--- |
-| **Frontend SOC Console** | `http://localhost:5173` | Dark SOC UI: Incident triage, attack graphs, replay scrubber, simulation & audit |
-| **IP Intelligence Console** | `http://localhost:5173/ip-intelligence` | Passive RFC IP intelligence, entity relationship graphs, attack paths & clusters |
-| **FastAPI REST API** | `http://localhost:8000` | High-performance asynchronous API gateway with Pydantic v2 schemas |
-| **Interactive OpenAPI Docs** | `http://localhost:8000/docs` | Interactive Swagger UI for testing all API endpoints with Bearer JWT |
-| **System Health Diagnostics** | `http://localhost:8000/api/v1/health` | Live JSON health probe reporting service and database connection state |
+</div>
 
 ---
 
