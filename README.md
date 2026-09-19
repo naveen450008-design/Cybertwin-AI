@@ -337,7 +337,7 @@ On initial startup, the backend idempotently creates all 4 standard RBAC roles a
 
 ## 11. Running Automated Verification Tests
 
-The platform includes a comprehensive automated test suite with **45 unit, integration, and end-to-end tests (100% pass rate in 22.38s)**:
+The platform includes a comprehensive automated test suite with **48 unit, integration, and end-to-end tests (100% pass rate in 24.96s)**:
 
 ```bash
 # Run full test suite from backend directory
@@ -345,7 +345,11 @@ cd backend
 python -m pytest -v
 ```
 
-### Verified Test Suites (45 Tests Passing):
+### Verified Test Suites (48 Tests Passing):
+- **Passive IP Intelligence & Threat Radar (`test_ip_intelligence.py`)**:
+  - `test_classify_ip_types`: Verifies passive RFC 1918, RFC 1122, and RFC 5737 synthetic WAN categorization without active network probing.
+  - `test_ip_intelligence_endpoints_and_radar`: Validates `/summary`, `/details/{ip}`, `/threat-radar`, and `/security-score`.
+  - `test_viewer_pii_masking_on_ip_intelligence`: Confirms that Viewer role masks sensitive internal IPs and usernames.
 - **Audit Ledger (`test_audit.py`)**:
   - `test_audit_hash_chain_and_verification`: Verifies sequential SHA-256 hash chaining ($H_n = \text{SHA256}(H_{n-1} \parallel \text{Payload}_n)$) anchored at Genesis block `64 zeroes`.
   - `test_audit_tampering_detection`: Proves that retroactive row alteration triggers cryptographic integrity failure.
