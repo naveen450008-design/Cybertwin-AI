@@ -4,7 +4,7 @@
 > **Canonical Positioning Statement**:  
 > *"An evidence-driven academic prototype integrating SIEM-style event ingestion, UEBA, anomaly detection, AI-assisted investigation, attack correlation, MITRE ATT&CK mapping, response simulation, human approval, and continuous learning into one coherent workflow."*
 
-[![Backend Tests](https://img.shields.io/badge/Backend%20Tests-45%2F45%20Passing%20(100%25)-brightgreen.svg)]()
+[![Backend Tests](https://img.shields.io/badge/Backend%20Tests-48%2F48%20Passing%20(100%25)-brightgreen.svg)]()
 [![Frontend Build](https://img.shields.io/badge/Frontend%20Build-Clean%20Production%20Build-blue.svg)]()
 [![Safety Invariant](https://img.shields.io/badge/Defensive%20Actions-Simulation%20Only-orange.svg)]()
 [![Roadmap Status](https://img.shields.io/badge/Phases%200--8-Fully%20Operational-success.svg)]()
@@ -13,6 +13,7 @@
 | Live Service | Endpoint / URL | Operational Purpose |
 | :--- | :--- | :--- |
 | **Frontend SOC Console** | [http://localhost:5173](http://localhost:5173) | Dark SOC UI: Incident triage, attack graphs, replay scrubber, simulation & audit |
+| **IP Intelligence Console** | [http://localhost:5173/ip-intelligence](http://localhost:5173/ip-intelligence) | Passive RFC IP intelligence, entity relationship graphs, attack paths & clusters |
 | **FastAPI REST API** | [http://localhost:8000](http://localhost:8000) | High-performance asynchronous API gateway with Pydantic v2 schemas |
 | **Interactive OpenAPI Docs** | [http://localhost:8000/docs](http://localhost:8000/docs) | Interactive Swagger UI for testing all API endpoints with Bearer JWT |
 | **System Health Diagnostics** | [http://localhost:8000/api/v1/health](http://localhost:8000/api/v1/health) | Live JSON health probe reporting service and database connection state |
@@ -113,6 +114,7 @@ flowchart TD
 |  |  * Correlation Service             * Risk Engine Service          * Investigation Service       |  |
 |  |  * MITRE Mapping Service           * Digital Twin Sim Service     * Response Playbook Service   |  |
 |  |  * Audit Ledger Service            * AI Copilot Service           * Model Governance Service    |  |
+|  |  * IP Intelligence Service         * Threat Radar Engine          * Visual Fingerprint Service  |  |
 |  +-------------------------------------------------------------------------------------------------+  |
 +-------------------------------------------------------------------------------------------------------+
                                                   |  Asyncpg / SQLAlchemy 2.0 Async
@@ -203,10 +205,11 @@ The React 18+ SPA provides a serious, dark-themed SOC interface built with TypeS
 
 | Route Path | SOC Module | Operational Purpose & Interactive Capabilities |
 | :--- | :--- | :--- |
-| `/dashboard` | **Enterprise SOC Dashboard** | Real-time system health telemetry, PostgreSQL connection state, live ingested event counts, active anomaly counts, interactive **RBAC Verification Laboratory** testing 403 Forbidden enforcement, and mandatory output taxonomy tags. |
+| `/dashboard` | **Enterprise SOC Command Center** | Real-time system health, **Radial Security Score HUD** (with 6-factor composite breakdown and `INTERNAL EVALUATION METRIC` badge), **Interactive Cyber Threat Radar** ($r, \theta$ polar threat mapping), **MITRE ATT&CK Visual Fingerprint**, and **RBAC Verification Laboratory**. |
+| `/ip-intelligence` | **IP Threat Intelligence Console** | Passive RFC IP classification (Internal RFC 1918, RFC 1122 Loopback, Public WAN, Synthetic Testnets), **IP Risk Profile Score** ($0.25 S_{vol} + 0.25 S_{anom} + 0.20 S_{inc} + 0.15 S_{sev} + 0.15 S_{mitre}$), **Interactive Entity Relationship Graph**, **Attack Path Visualizer**, **Activity Timeline**, and **IP Clustering**. Zero active scanning/probing. |
 | `/incidents` | **Incident Triage Workbench** | Prioritized incident queue with composite Risk Score badges (0-100), SLA countdown timers, multi-factor status filtering (`NEW`, `INVESTIGATING`, `CONTAINMENT_RECOMMENDED`, `CONTAINED`, `RESOLVED`), and severity metrics. |
-| `/incidents/:id` | **Incident Deep-Dive & Canvas** | **Interactive React Flow Attack Graph**: Visualizes Users, Workstations, Servers, and Processes. <br>**1x / 2x / 5x Timeline Replay Scrubber**: Step-by-step chronological event replay. <br>**MITRE ATT&CK Badges**: Direct technique/tactic mapping. <br>**AI Copilot Drawer**: Database-grounded Q&A separating `FACT` from `ESTIMATED PREDICTION`, plus 5D cosine similar incident recommendations. |
-| `/simulation` | **Digital Twin Simulation Console** | Visualizes in-memory topology graph $G=(V,E)$ (assets, servers, sessions). Includes **Canonical Blast-Radius Disruption Calculator** ($20 N_{\text{sessions}} + 15 N_{\text{collateral}} + 50 \mathbb{I}(\text{Tier-1})$), role-gated human approval response queue (`SIMULATE_ISOLATE_DEVICE`, `SIMULATE_BLOCK_IP`), and instant safe pre-mutation snapshot rollback. |
+| `/incidents/:id` | **Incident Deep-Dive & Canvas** | **Interactive React Flow Attack Graph**: Visualizes Users, Workstations, Servers, and Processes with clickable IP badges. <br>**MITRE ATT&CK Visual Fingerprint**: Active kill-chain technique mapping. <br>**UEBA Normal vs Observed Visualizer**: Baseline login velocity, failure rate, and Isolation Forest anomaly deviation. <br>**6-Factor Deterministic Risk Model**: Visual factor meters ($0.25 S_{anom} + 0.20 S_{sev} + 0.15 S_{asset} + 0.15 S_{id} + 0.15 S_{seq} + 0.10 S_{stage}$). <br>**1x / 2x / 5x Timeline Replay Scrubber**: Step-by-step chronological event replay. <br>**AI Copilot Drawer**: Database-grounded Q&A separating `FACT` from `ESTIMATED PREDICTION`. |
+| `/simulation` | **Digital Twin Simulation Console** | Visualizes in-memory topology graph $G=(V,E)$ (assets, servers, sessions). Includes **Before vs After Simulation Visualizer** (`SIMULATED RESULT — NOT REAL-WORLD EXECUTION`), **Canonical Blast-Radius Disruption Calculator**, role-gated human approval response queue, and instant rollback. |
 | `/audit` | **Cryptographic Audit Ledger** | Chronological view of all mutations, actor roles, actions, and SHA-256 hash chains. Features **One-Click Cryptographic Verification** checking sequential continuity from Genesis Block `64 zeroes`, raw forensic JSON payload inspector, and tamper detection. |
 | `/ingestion-demo`| **Synthetic Telemetry & Ingestion** | Interactive trigger console for deterministic scenarios (`seed=42`: Normal Office Day, Brute Force, Ransomware Exfiltration, Impossible Travel), drag-and-drop CSV / JSON file upload, and live telemetry stream. |
 | `/admin` | **Administration & Governance** | System administration, operator role assignments, and **Model Governance Metrics** tracking empirical Precision, Recall, and F1 scores from verified analyst ground-truth labels. |
@@ -251,6 +254,10 @@ The backend exposes a high-performance, asynchronous REST API mounted under `/ap
 | **Synthetic Demo** | `/api/v1/demo/generate-normal` | `POST` | Security Analyst | Generates synthetic baseline telemetry |
 | | `/api/v1/demo/generate-suspicious` | `POST` | Security Analyst | Injects multi-stage attack scenarios (Seed=42) |
 | | `/api/v1/demo/run-full-simulation-and-reset`| `POST` | Security Admin | Executes full simulation sequence and resets state |
+| **IP Intelligence** | `/api/v1/ip-intelligence/summary` | `GET` | Viewer | Summary catalog of observed IPs, event density & risks |
+| | `/api/v1/ip-intelligence/details/{ip}` | `GET` | Viewer | Deep dossier: RFC classification, graph, attack path, timeline |
+| | `/api/v1/ip-intelligence/threat-radar` | `GET` | Viewer | Polar coordinates mapping observed threat entities |
+| | `/api/v1/ip-intelligence/security-score` | `GET` | Viewer | Deterministic tenant-level defensive health posture |
 
 ---
 
