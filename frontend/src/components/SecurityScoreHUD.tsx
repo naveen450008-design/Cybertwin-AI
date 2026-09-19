@@ -160,8 +160,10 @@ export const SecurityScoreHUD: React.FC<SecurityScoreHUDProps> = ({
               <div className="text-xs font-mono font-bold text-blue-400">DEFENSIVE</div>
             </div>
             <div className="bg-[#0B0F17] px-3 py-2 rounded-lg border border-gray-800 col-span-2 sm:col-span-1">
-              <div className="text-[10px] font-mono text-gray-500">STANDARD</div>
-              <div className="text-[11px] font-mono text-gray-400">INTERNAL REF</div>
+              <div className="text-[9px] font-mono text-gray-500">STANDARD</div>
+              <div className="text-[10px] font-mono text-amber-400 font-bold leading-tight">
+                INTERNAL EVALUATION METRIC — NON-INDUSTRY STANDARD
+              </div>
             </div>
           </div>
 
@@ -277,6 +279,33 @@ export const SecurityScoreHUD: React.FC<SecurityScoreHUDProps> = ({
                 />
               </div>
               <div className="text-[10px] font-mono text-gray-500 mt-1">Kill chain progression milestone</div>
+            </div>
+          </div>
+
+          {/* Three-Score Explicit Distinction Panel */}
+          <div className="bg-[#0B0F17] p-3 rounded-lg border border-gray-800 text-xs font-mono space-y-2">
+            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">
+              Architectural Score Taxonomy & Distinction
+            </span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-[11px]">
+              <div className="p-2 rounded bg-gray-900/60 border border-emerald-900/40">
+                <span className="text-emerald-400 font-bold block">1. Security Score</span>
+                <span className="text-gray-400 text-[10px] block mt-0.5">
+                  Tenant-level defensive posture evaluation (0–100). Aggregates containment, isolation forest anomalies, and asset criticality.
+                </span>
+              </div>
+              <div className="p-2 rounded bg-gray-900/60 border border-red-900/40">
+                <span className="text-red-400 font-bold block">2. Incident Risk Score</span>
+                <span className="text-gray-400 text-[10px] block mt-0.5">
+                  Canonical 6-factor deterministic model: <code className="text-red-300">0.25*S_anom + 0.20*S_sev + 0.15*S_asset + 0.15*S_id + 0.15*S_seq + 0.10*S_stage</code>.
+                </span>
+              </div>
+              <div className="p-2 rounded bg-gray-900/60 border border-amber-900/40">
+                <span className="text-amber-400 font-bold block">3. IP Risk Profile</span>
+                <span className="text-gray-400 text-[10px] block mt-0.5">
+                  Passive local evidence profile: <code className="text-amber-300">0.25*S_vol + 0.25*S_anom + 0.20*S_inc + 0.15*S_sev + 0.15*S_mitre</code>.
+                </span>
+              </div>
             </div>
           </div>
 

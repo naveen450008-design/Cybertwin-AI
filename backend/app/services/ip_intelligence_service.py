@@ -242,9 +242,9 @@ class IPIntelligenceService:
                 geo={"status": "Data unavailable", "city": "Unknown", "country": "Unknown", "coordinates": "Approximate coords unavailable"},
                 network={"asn": "Data unavailable", "isp": "Unknown", "hostname": "Data unavailable"},
                 reputation={
-                    "status": "Reputation data unavailable",
+                    "status": "Reputation data unavailable — No external threat intelligence provider configured",
                     "configured_source": None,
-                    "disclaimer": "Zero active network probes performed. Displaying passive evidence only.",
+                    "disclaimer": "Defensive passive analysis only; zero active port scanning or probing performed.",
                     "confidence": 0.0
                 },
                 risk_profile=IPRiskProfileBreakdown(
@@ -391,8 +391,8 @@ class IPIntelligenceService:
 
         # Explicit Reputation Disclosure (Non-fabricated)
         reputation_data = {
-            "status": "Reputation data unavailable",
-            "reason": "No external threat intelligence provider configured in local research testbed",
+            "status": "Reputation data unavailable — No external threat intelligence provider configured",
+            "reason": "No external threat intelligence provider configured",
             "disclaimer": "Defensive passive analysis only; zero active port scanning or probing performed.",
             "source_classification": "EXTERNAL_IP_INTELLIGENCE_DISCLAIMER",
             "internal_evidence_status": "ACTIVE_EVENTS_RECORDED"
