@@ -264,32 +264,68 @@ export const IncidentDetailPage: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           <div className="bg-gray-900/80 p-2.5 rounded border border-gray-800 text-xs font-mono">
             <span className="text-gray-500 block text-[10px]">ANOMALY (25%)</span>
-            <strong className="text-amber-400 text-sm">{incident.anomaly_score.toFixed(1)}</strong>
+            <div className="flex items-baseline justify-between mt-0.5">
+              <strong className="text-amber-400 text-sm">{incident.anomaly_score.toFixed(1)}</strong>
+              <span className="text-[10px] text-gray-400">/100</span>
+            </div>
+            <div className="w-full bg-gray-800 rounded-full h-1.5 mt-1.5 mb-1 overflow-hidden">
+              <div className="bg-amber-400 h-1.5 rounded-full transition-all" style={{ width: `${Math.min(100, incident.anomaly_score)}%` }} />
+            </div>
             <span className="text-[10px] text-gray-500 block">Isolation Forest</span>
           </div>
           <div className="bg-gray-900/80 p-2.5 rounded border border-gray-800 text-xs font-mono">
             <span className="text-gray-500 block text-[10px]">SEVERITY (20%)</span>
-            <strong className="text-red-400 text-sm">{incident.threat_severity_score}</strong>
+            <div className="flex items-baseline justify-between mt-0.5">
+              <strong className="text-red-400 text-sm">{incident.threat_severity_score}</strong>
+              <span className="text-[10px] text-gray-400">/100</span>
+            </div>
+            <div className="w-full bg-gray-800 rounded-full h-1.5 mt-1.5 mb-1 overflow-hidden">
+              <div className="bg-red-400 h-1.5 rounded-full transition-all" style={{ width: `${Math.min(100, incident.threat_severity_score)}%` }} />
+            </div>
             <span className="text-[10px] text-gray-500 block">Threat Rating</span>
           </div>
           <div className="bg-gray-900/80 p-2.5 rounded border border-gray-800 text-xs font-mono">
             <span className="text-gray-500 block text-[10px]">ASSET (15%)</span>
-            <strong className="text-blue-400 text-sm">{incident.asset_criticality_score}</strong>
+            <div className="flex items-baseline justify-between mt-0.5">
+              <strong className="text-blue-400 text-sm">{incident.asset_criticality_score}</strong>
+              <span className="text-[10px] text-gray-400">/100</span>
+            </div>
+            <div className="w-full bg-gray-800 rounded-full h-1.5 mt-1.5 mb-1 overflow-hidden">
+              <div className="bg-blue-400 h-1.5 rounded-full transition-all" style={{ width: `${Math.min(100, incident.asset_criticality_score)}%` }} />
+            </div>
             <span className="text-[10px] text-gray-500 block">Criticality Tier</span>
           </div>
           <div className="bg-gray-900/80 p-2.5 rounded border border-gray-800 text-xs font-mono">
             <span className="text-gray-500 block text-[10px]">IDENTITY (15%)</span>
-            <strong className="text-purple-400 text-sm">{incident.identity_sensitivity_score}</strong>
+            <div className="flex items-baseline justify-between mt-0.5">
+              <strong className="text-purple-400 text-sm">{incident.identity_sensitivity_score}</strong>
+              <span className="text-[10px] text-gray-400">/100</span>
+            </div>
+            <div className="w-full bg-gray-800 rounded-full h-1.5 mt-1.5 mb-1 overflow-hidden">
+              <div className="bg-purple-400 h-1.5 rounded-full transition-all" style={{ width: `${Math.min(100, incident.identity_sensitivity_score)}%` }} />
+            </div>
             <span className="text-[10px] text-gray-500 block">Privilege Tier</span>
           </div>
           <div className="bg-gray-900/80 p-2.5 rounded border border-gray-800 text-xs font-mono">
             <span className="text-gray-500 block text-[10px]">SEQUENCE (15%)</span>
-            <strong className="text-emerald-400 text-sm">{incident.event_sequence_score}</strong>
+            <div className="flex items-baseline justify-between mt-0.5">
+              <strong className="text-emerald-400 text-sm">{incident.event_sequence_score}</strong>
+              <span className="text-[10px] text-gray-400">/100</span>
+            </div>
+            <div className="w-full bg-gray-800 rounded-full h-1.5 mt-1.5 mb-1 overflow-hidden">
+              <div className="bg-emerald-400 h-1.5 rounded-full transition-all" style={{ width: `${Math.min(100, incident.event_sequence_score)}%` }} />
+            </div>
             <span className="text-[10px] text-gray-500 block">Event Chain</span>
           </div>
           <div className="bg-gray-900/80 p-2.5 rounded border border-gray-800 text-xs font-mono">
             <span className="text-gray-500 block text-[10px]">STAGE (10%)</span>
-            <strong className="text-indigo-400 text-sm">{incident.attack_stage_score}</strong>
+            <div className="flex items-baseline justify-between mt-0.5">
+              <strong className="text-indigo-400 text-sm">{incident.attack_stage_score}</strong>
+              <span className="text-[10px] text-gray-400">/100</span>
+            </div>
+            <div className="w-full bg-gray-800 rounded-full h-1.5 mt-1.5 mb-1 overflow-hidden">
+              <div className="bg-indigo-400 h-1.5 rounded-full transition-all" style={{ width: `${Math.min(100, incident.attack_stage_score)}%` }} />
+            </div>
             <span className="text-[10px] text-gray-500 block">Kill-Chain Depth</span>
           </div>
         </div>
