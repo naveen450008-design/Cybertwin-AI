@@ -10,13 +10,13 @@
 [![Roadmap Status](https://img.shields.io/badge/Phases%200--8-Fully%20Operational-success.svg)]()
 [![Security Matrix](https://img.shields.io/badge/RBAC-4--Tier%20Enforced-purple.svg)]()
 
-| Live Service | Endpoint / URL | Operational Purpose |
+| Live Service | Local Port / URL | Operational Purpose |
 | :--- | :--- | :--- |
-| **Frontend SOC Console** | [http://localhost:5173](http://localhost:5173) | Dark SOC UI: Incident triage, attack graphs, replay scrubber, simulation & audit |
-| **IP Intelligence Console** | [http://localhost:5173/ip-intelligence](http://localhost:5173/ip-intelligence) | Passive RFC IP intelligence, entity relationship graphs, attack paths & clusters |
-| **FastAPI REST API** | [http://localhost:8000](http://localhost:8000) | High-performance asynchronous API gateway with Pydantic v2 schemas |
-| **Interactive OpenAPI Docs** | [http://localhost:8000/docs](http://localhost:8000/docs) | Interactive Swagger UI for testing all API endpoints with Bearer JWT |
-| **System Health Diagnostics** | [http://localhost:8000/api/v1/health](http://localhost:8000/api/v1/health) | Live JSON health probe reporting service and database connection state |
+| **Frontend SOC Console** | `http://localhost:5173` | Dark SOC UI: Incident triage, attack graphs, replay scrubber, simulation & audit |
+| **IP Intelligence Console** | `http://localhost:5173/ip-intelligence` | Passive RFC IP intelligence, entity relationship graphs, attack paths & clusters |
+| **FastAPI REST API** | `http://localhost:8000` | High-performance asynchronous API gateway with Pydantic v2 schemas |
+| **Interactive OpenAPI Docs** | `http://localhost:8000/docs` | Interactive Swagger UI for testing all API endpoints with Bearer JWT |
+| **System Health Diagnostics** | `http://localhost:8000/api/v1/health` | Live JSON health probe reporting service and database connection state |
 
 ---
 
@@ -280,11 +280,11 @@ The backend exposes a high-performance, asynchronous REST API mounted under `/ap
    docker-compose up --build
    ```
 
-4. Open the active applications:
-   - **Frontend SOC Console**: [http://localhost:5173](http://localhost:5173)
-   - **Backend REST API**: [http://localhost:8000](http://localhost:8000)
-   - **Interactive Swagger Documentation**: [http://localhost:8000/docs](http://localhost:8000/docs)
-   - **Health Diagnostic Probe**: [http://localhost:8000/api/v1/health](http://localhost:8000/api/v1/health)
+4. Access the applications locally:
+   - **Frontend SOC Console**: `http://localhost:5173`
+   - **Backend REST API**: `http://localhost:8000`
+   - **Interactive Swagger Documentation**: `http://localhost:8000/docs`
+   - **Health Diagnostic Probe**: `http://localhost:8000/api/v1/health`
 
 ---
 
@@ -321,7 +321,7 @@ The backend exposes a high-performance, asynchronous REST API mounted under `/ap
    ```bash
    npm run dev -- --host 0.0.0.0 --port 5173
    ```
-4. Open your browser at [http://localhost:5173](http://localhost:5173).
+4. Open your browser locally at `http://localhost:5173`.
 
 ---
 
