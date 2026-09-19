@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { api } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { DigitalTwinBeforeAfter } from '../components/DigitalTwinBeforeAfter';
 
 interface TopologyNode {
   id: string;
@@ -487,6 +488,19 @@ export const SimulationConsolePage: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Before vs After Simulation Analysis */}
+      <DigitalTwinBeforeAfter
+        targetEntity={targetEntityId}
+        actionType={actionType}
+        preRiskScore={84.0}
+        postRiskScore={blastResult ? Math.max(15, 84.0 - (blastResult.estimated_risk_reduction_pct || 45)) : 26.5}
+        severedSessions={blastResult ? blastResult.severed_sessions_count : 3}
+        collateralUsers={blastResult ? blastResult.collateral_users_count : 1}
+        disruptionScore={blastResult ? Math.round(blastResult.disruption_score) : 60}
+        isTier1Disrupted={blastResult ? blastResult.tier1_disrupted : false}
+        rollbackAvailable={true}
+      />
 
       {/* Response Action Queue & Human Approval Gate */}
       <div className="bg-[#111827] border border-gray-800 rounded-xl p-5 shadow-lg space-y-4">

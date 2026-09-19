@@ -1,5 +1,7 @@
 from fastapi import APIRouter
-from app.api.v1.endpoints import auth, health, events, demo, incidents, simulation, audit, copilot, governance
+from app.api.v1.endpoints import (
+    auth, health, events, demo, incidents, simulation, audit, copilot, governance, ip_intelligence
+)
 
 api_router = APIRouter()
 
@@ -11,4 +13,6 @@ api_router.include_router(simulation.router, prefix="/simulation", tags=["Digita
 api_router.include_router(audit.router, prefix="/audit", tags=["Cryptographic Audit Ledger"])
 api_router.include_router(copilot.router, prefix="/copilot", tags=["AI Investigation Copilot"])
 api_router.include_router(governance.router, prefix="/governance", tags=["Model Governance & Continuous Learning"])
+api_router.include_router(ip_intelligence.router, prefix="/ip-intelligence", tags=["IP Threat Intelligence"])
 api_router.include_router(health.router, prefix="", tags=["Health Diagnostics"])
+

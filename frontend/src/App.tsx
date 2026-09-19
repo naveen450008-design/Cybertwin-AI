@@ -16,6 +16,7 @@ import { IncidentsPage } from './pages/IncidentsPage';
 import { IncidentDetailPage } from './pages/IncidentDetailPage';
 import { SimulationConsolePage } from './pages/SimulationConsolePage';
 import { AuditLedgerPage } from './pages/AuditLedgerPage';
+import { IPIntelligencePage } from './pages/IPIntelligencePage';
 
 const AppLayout: React.FC = () => {
   return (
@@ -47,6 +48,9 @@ export const App: React.FC = () => {
           <Route element={<ProtectedRoute />}>
             <Route element={<AppLayout />}>
               <Route path="/" element={<DashboardPage />} />
+
+              {/* IP Threat Intelligence */}
+              <Route path="/ip-intelligence" element={<IPIntelligencePage />} />
 
               {/* Incidents Module */}
               <Route path="/incidents" element={<IncidentsPage />} />

@@ -7,7 +7,8 @@ import {
   FileText, 
   Sliders, 
   Database,
-  Lock
+  Lock,
+  Globe
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -35,6 +36,14 @@ export const Sidebar: React.FC = () => {
             <NavLink to="/" end className={navItemClass}>
               <LayoutDashboard className="w-4 h-4 text-blue-400" />
               <span>SOC Dashboard</span>
+            </NavLink>
+
+            <NavLink to="/ip-intelligence" className={navItemClass}>
+              <Globe className="w-4 h-4 text-cyan-400" />
+              <div className="flex items-center justify-between w-full">
+                <span>IP Intelligence</span>
+                <span className="text-[9px] bg-cyan-950 text-cyan-400 font-mono px-1 rounded border border-cyan-800/60">INTEL</span>
+              </div>
             </NavLink>
 
             <NavLink to="/incidents" className={navItemClass}>

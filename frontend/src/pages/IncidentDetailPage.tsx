@@ -12,8 +12,12 @@ import {
   Bot, 
   Network, 
   Layers, 
-  Zap
+  Zap,
+  Globe
 } from 'lucide-react';
+import { IPIntelligenceDrawer } from '../components/IPIntelligenceDrawer';
+import { MitreFingerprint } from '../components/MitreFingerprint';
+import { UebaBehaviourVisualizer } from '../components/UebaBehaviourVisualizer';
 
 interface TimelineEvent {
   event_id: string;
@@ -87,6 +91,9 @@ export const IncidentDetailPage: React.FC = () => {
   const [copilotOpen, setCopilotOpen] = useState(false);
   const [copilotLoading, setCopilotLoading] = useState(false);
   const [copilotResult, setCopilotResult] = useState<any>(null);
+
+  // IP Recon Drawer State
+  const [selectedIP, setSelectedIP] = useState<string | null>(null);
 
   const headers = { Authorization: `Bearer ${token}` };
 
@@ -331,9 +338,15 @@ export const IncidentDetailPage: React.FC = () => {
             graphNodes.map((node) => (
               <div
                 key={node.id}
+                onClick={() => {
+                  if (node.type === 'attacker_ip') {
+                    const ip = node.metadata?.source_ip || node.label.replace('IP: ', '');
+                    setSelectedIP(ip);
+                  }
+                }}
                 className={`p-3 rounded-lg border text-center font-mono text-xs min-w-[140px] shadow-lg transition transform hover:scale-105 ${
                   node.type === 'attacker_ip'
-                    ? 'bg-red-950/70 border-red-800 text-red-200'
+                    ? 'bg-red-950/70 border-red-800 text-red-200 cursor-pointer hover:ring-2 hover:ring-red-500'
                     : node.type === 'user'
                     ? 'bg-purple-950/70 border-purple-800 text-purple-200'
                     : node.type === 'device'
@@ -342,7 +355,7 @@ export const IncidentDetailPage: React.FC = () => {
                 }`}
               >
                 <div className="text-[10px] uppercase font-bold tracking-wider opacity-75">
-                  {node.type}
+                  {node.type === 'attacker_ip' ? 'ATTACKER IP (CLICK FOR RECON)' : node.type}
                 </div>
                 <div className="font-semibold text-sm mt-0.5">{node.label}</div>
               </div>
@@ -438,13 +451,38 @@ export const IncidentDetailPage: React.FC = () => {
 
                 <div className="text-right">
                   <div className="text-gray-400">{new Date(ev.timestamp).toLocaleTimeString()}</div>
-                  <div className="text-[10px] text-gray-500">{ev.source_ip || ev.username || 'System'}</div>
+                  <div className="text-[10px] text-gray-500 flex items-center justify-end gap-1">
+                    {ev.source_ip ? (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedIP(ev.source_ip!);
+                        }}
+                        className="text-cyan-400 hover:text-cyan-300 underline flex items-center gap-1"
+                        title="Inspect IP Intelligence"
+                      >
+                        <Globe className="w-2.5 h-2.5" /> {ev.source_ip}
+                      </button>
+                    ) : (
+                      ev.username || 'System'
+                    )}
+                  </div>
                 </div>
               </div>
             ))
           )}
         </div>
       </div>
+
+      {/* MITRE ATT&CK Visual Fingerprint */}
+      <MitreFingerprint techniques={incident.mitre_techniques} />
+
+      {/* UEBA Behavioural Profile Visualizer */}
+      <UebaBehaviourVisualizer 
+        username={timeline[0]?.username || 'user_02'} 
+        anomalyScore={incident.anomaly_score} 
+        observedIp={timeline[0]?.source_ip || '198.51.100.42'} 
+      />
 
       {/* AI Investigation Copilot Slide-Out Drawer */}
       {copilotOpen && (
@@ -517,6 +555,12 @@ export const IncidentDetailPage: React.FC = () => {
           ) : null}
         </div>
       )}
+
+      {/* Slide-out IP Threat Intelligence Recon Drawer */}
+      <IPIntelligenceDrawer
+        ipAddress={selectedIP}
+        onClose={() => setSelectedIP(null)}
+      />
     </div>
   );
 };
